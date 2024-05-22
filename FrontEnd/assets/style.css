@@ -151,7 +151,6 @@ li:hover {
 	color: var(--white);
 	background-color: var(--main-color);
 }
-
 .gallery {
 	width: 100%;
 	margin-top: 50px;
@@ -160,10 +159,12 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 
+}
+.hidden {
+	display: none;
 }
 #contact {
 	width: 50%;

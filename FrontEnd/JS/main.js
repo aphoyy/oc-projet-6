@@ -1,6 +1,7 @@
 let projectsList = [];
 let categoriesList = [];
-let previousFilter = 0;
+let currentFilter = 1;
+let filteredList = [];
 
 window.onload = getProjects();
 window.onload = getCategories();
@@ -19,8 +20,7 @@ function displayProjects() {
         const imageUrl = projectsList[i]["imageUrl"];
         const image = '<img src="' + imageUrl + '" alt="' + projectsList[i]["title"] +'" />';
         const figcaption = "<figcaption>" + projectsList[i]["title"] + "</figcaption>";
-        const project = "<figure id=" + id + ">" + image + figcaption + "</figure>";
-    
+        const project = '<figure class="projects" id=' + id + ">" + image + figcaption + "</figure>";
         // Display the project at the end
         document
             .getElementById("gallery")
@@ -54,14 +54,35 @@ function displayCategories() {
 }
 
 function filterClick(value) {
-    console.log(value)
     // Remove class from previous filter
     document
-        .getElementById("filter-" + previousFilter).classList
+        .getElementById("filter-" + currentFilter).classList
         .remove("filter-selected");
     // Add class to new filter
     document
         .getElementById("filter-" + value).classList
         .add("filter-selected");
-    previousFilter = value;
+    currentFilter = value;
+    handleCategory();
+}
+
+function handleCategory() {
+    // Remove the hidden class from all projects
+    Array.from(document.getElementsByClassName("hidden")).forEach((element) => {
+        element.classList.remove("hidden")
+    });
+    filteredList = [];
+    // If currentFilter equal to zero show all
+    if (currentFilter !== 0) {
+        // Make a list of all projects that aren't from the same category
+        projectsList.map((x) => {
+            if (x.categoryId !== currentFilter) {
+                filteredList.push(x.id);
+            }
+        })
+        // Make every projects from the list display: none
+        for (i = 0; i < filteredList.length; i++) {
+            document.getElementById("projet-" + filteredList[i]).classList.add("hidden");
+        }
+    }
 }
