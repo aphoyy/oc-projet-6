@@ -200,7 +200,6 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 }
-
 .form-section input {
 	height: 50px;
 	font-size: 1.2em;
