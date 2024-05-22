@@ -1,7 +1,9 @@
+// List of all projects and categories
 let projectsList = [];
 let categoriesList = [];
-let currentFilter = 1;
-let filteredList = [];
+
+let blacklist = [];
+let currentCategory = 0;
 
 window.onload = getProjects();
 window.onload = getCategories();
@@ -15,16 +17,14 @@ async function getProjects() {
 function displayProjects() {
     // Loop until every projet are displayed
     for (i = 0; i < projectsList.length; i ++) {
-        // Define every project variables
+        // Define every project parts
         const id = "projet-" + projectsList[i]["id"];
-        const imageUrl = projectsList[i]["imageUrl"];
-        const image = '<img src="' + imageUrl + '" alt="' + projectsList[i]["title"] +'" />';
-        const figcaption = "<figcaption>" + projectsList[i]["title"] + "</figcaption>";
-        const project = '<figure class="projects" id=' + id + ">" + image + figcaption + "</figure>";
-        // Display the project at the end
+        const image = '<img src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
+        const text = "<figcaption>" + projectsList[i]["title"] + "</figcaption>";
+        // Display the project at the end of gallery
         document
             .getElementById("gallery")
-            .insertAdjacentHTML("beforeend", project);
+            .insertAdjacentHTML("beforeend", '<figure class="projects" id=' + id + ">" + image + text + "</figure>");
     }
 }
 
@@ -35,11 +35,13 @@ async function getCategories() {
 }
 
 function displayCategories() {
-    const categoriesDiv = document.getElementById("categories");
-    categoriesDiv.insertAdjacentHTML(
+    const container = document.getElementById("categories-container");
+    // Add "all" filter
+    container.insertAdjacentHTML(
         "beforeend",
         `<button id="filter-0" onclick="filterClick(0)" class="filter-selected">Tous</button>`
     );
+    // Add every other filter | + 1 because "all" is 0
     for (i = 0; i < categoriesList.length; i++) {
         const category = 
             `<button id="filter-` +
@@ -49,40 +51,41 @@ function displayCategories() {
             `)">`+
             categoriesList[i]["name"] +
             "</button>";
-        categoriesDiv.insertAdjacentHTML("beforeend", category);
+        container.insertAdjacentHTML("beforeend", category);
     }
 }
 
 function filterClick(value) {
     // Remove class from previous filter
     document
-        .getElementById("filter-" + currentFilter).classList
+        .getElementById("filter-" + currentCategory).classList
         .remove("filter-selected");
     // Add class to new filter
     document
         .getElementById("filter-" + value).classList
         .add("filter-selected");
-    currentFilter = value;
+    currentCategory = value;
     handleCategory();
 }
 
 function handleCategory() {
-    // Remove the hidden class from all projects
-    Array.from(document.getElementsByClassName("hidden")).forEach((element) => {
-        element.classList.remove("hidden")
+    // Make all the hidden projects reappear
+    Array.from(document.getElementsByClassName("hidden")).forEach((project) => {
+        project.classList.remove("hidden")
     });
-    filteredList = [];
-    // If currentFilter equal to zero show all
-    if (currentFilter !== 0) {
-        // Make a list of all projects that aren't from the same category
-        projectsList.map((x) => {
-            if (x.categoryId !== currentFilter) {
-                filteredList.push(x.id);
+    // Reset the blacklist
+    blacklist = [];
+    // If currentCategory equal to zero display every projets
+    if (currentCategory !== 0) {
+        // Make a blacklist of all projects that aren't from the same category
+        projectsList.map((project) => {
+            if (project.categoryId !== currentCategory) {
+                blacklist.push(project.id);
             }
         })
-        // Make every projects from the list display: none
-        for (i = 0; i < filteredList.length; i++) {
-            document.getElementById("projet-" + filteredList[i]).classList.add("hidden");
+        // Make every projects from the blacklist disappear
+        for (i = 0; i < blacklist.length; i++) {
+            document.getElementById("projet-" + blacklist[i]).classList.add("hidden");
         }
     }
 }
