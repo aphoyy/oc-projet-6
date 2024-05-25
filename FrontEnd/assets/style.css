@@ -54,15 +54,26 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: var(--beige);
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px auto;
+	max-width: 1140px;
+}
+main {
+	max-width: 1140px;
+	margin:auto;
+}
+footer {
+	height: 60px;
+	background-color: var(--white);
+	display: flex;
+	justify-content: end;
+	align-items: center;
 }
 section {
 	margin: 50px 0
@@ -113,6 +124,28 @@ li:hover {
 	width: 19.35px;
 	height: 19.35px;
 }
+#edit-mode {
+	background-color: black;
+	color: var(--white);
+	height: 59px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.edit-img {
+	margin-right: 8px;
+	width: 16px;
+}
+.edit-text {
+	font-size: 16px;
+	font-weight: 400;
+}
+#edit-button {
+	position: absolute;
+	top: 10px;
+	left: 60.5%;
+	display: flex;
+}
 #introduction {
 	margin: 139px 0;
 	display: flex;
@@ -139,7 +172,10 @@ li:hover {
 	width: 72%;
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
+#portfolio {
+	position: relative;
+}
+#projets {
 	text-align: center;
 	margin-bottom: 51px;
 }
@@ -226,7 +262,7 @@ input[type="submit"]{
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin : 40px auto 45px auto ;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
@@ -235,6 +271,6 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin-right: 2em;
 }
 

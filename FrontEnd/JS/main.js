@@ -89,3 +89,18 @@ function handleCategory() {
         }
     }
 }
+
+function edit() {
+    document.getElementById("header").insertAdjacentHTML("beforebegin", `
+    <div id="edit-mode">
+        <img class="edit-img" src="./assets/icons/edit-white.svg">
+        <h3 class="edit-text">Mode édition</h3>
+    </div>
+    `);
+    document.getElementById("projets").insertAdjacentHTML("afterend", `
+        <div id="edit-button">
+            <img class="edit-img" src="./assets/icons/edit-black.svg">
+            <h3 class="edit-text">modifier</h3>
+        </div>
+    `);
+}

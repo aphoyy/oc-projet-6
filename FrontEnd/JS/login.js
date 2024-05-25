@@ -28,7 +28,7 @@ async function postLogin() {
         } else if (response.status === 404) {
             alert("Utilisateur inconnu")
         } else if (response.status === 200) {
-            window.localStorage.setItem("user", JSON.stringify(result));
+            window.localStorage.setItem("user", result);
             window.location.href="/";
         }
     } catch (error) {
