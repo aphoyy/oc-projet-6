@@ -1,0 +1,16 @@
+@use './variables';
+
+.footer {
+	height: 60px;
+	background-color: variables.$white;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+    &__list {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 2em;
+        list-style-type: none;
+        font-size: 1.2em;
+    }
+}

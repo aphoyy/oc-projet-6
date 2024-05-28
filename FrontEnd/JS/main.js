@@ -8,23 +8,28 @@ let categoriesList = [];
 let blacklist = [];
 let currentCategory = 0;
 
-window.onload = getProjects();
-window.onload = getCategories();
-window.onload = edit();
+// Load right after set variables
+window.onload = () => {
+    getProjects();
+    getCategories();
+    edit();
+}
 
+// Get and set the projects list
 async function getProjects() {
 	const response = await fetch("http://localhost:5678/api/works");
 	projectsList  = await response.json();
     displayProjects();
 }
 
+// Display every projects from the list
 function displayProjects() {
     // Loop until every projet are displayed
     for (i = 0; i < projectsList.length; i ++) {
         // Define every project parts
         const id = "projet-" + projectsList[i]["id"];
-        const image = '<img src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
-        const text = "<figcaption>" + projectsList[i]["title"] + "</figcaption>";
+        const image = '<img class="gallery__img" src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
+        const text = '<figcaption class="gallery__text">' + projectsList[i]["title"] + '</figcaption>';
         // Display the project at the end of gallery
         document
             .getElementById("gallery")
@@ -32,18 +37,20 @@ function displayProjects() {
     }
 }
 
+// Get and set the categories
 async function getCategories() {
 	const response = await fetch("http://localhost:5678/api/categories");
 	categoriesList  = await response.json();
     displayCategories();
 }
 
+// Display "all" category and every other categories
 function displayCategories() {
     const container = document.getElementById("categories-container");
     // Add "all" filter
     container.insertAdjacentHTML(
         "beforeend",
-        `<button id="filter-0" onclick="filterClick(0)" class="filter-selected">Tous</button>`
+        `<button id="filter-0" onclick="filterClick(0)" class="portfolio__button selected">Tous</button>`
     );
     // Add every other filter | + 1 because "all" is 0
     for (i = 0; i < categoriesList.length; i++) {
@@ -52,7 +59,8 @@ function displayCategories() {
             (i + 1) +
             `" onclick="filterClick(` +
             (i + 1) +
-            `)">`+
+            `)"`+
+            'class="portfolio__button">' +
             categoriesList[i]["name"] +
             "</button>";
         container.insertAdjacentHTML("beforeend", category);
@@ -63,18 +71,18 @@ function filterClick(value) {
     // Remove class from previous filter
     document
         .getElementById("filter-" + currentCategory).classList
-        .remove("filter-selected");
+        .remove("selected");
     // Add class to new filter
     document
         .getElementById("filter-" + value).classList
-        .add("filter-selected");
+        .add("selected");
     currentCategory = value;
     handleCategory();
 }
 
 function handleCategory() {
     // Make all the hidden projects reappear
-    Array.from(document.getElementsByClassName("hidden")).forEach((project) => {
+    Array.from(document.getElementsByClassName("projects hidden")).forEach((project) => {
         project.classList.remove("hidden")
     });
     // Reset the blacklist
@@ -99,15 +107,15 @@ function edit() {
     if (user !== null) { 
         // Display edit mode banner
         document.getElementById("header").insertAdjacentHTML("beforebegin", `
-            <div id="edit-mode">
-                <img class="edit-img" src="./assets/icons/edit-white.svg">
-                <h3 class="edit-text">Mode édition</h3>
+            <div class="edit-banner">
+                <img class="edit-banner__img" src="./assets/icons/edit-white.svg">
+                <h3 class="edit-banner__text">Mode édition</h3>
             </div>
         `);
         // Display edit mode button
         document.getElementById("projets").insertAdjacentHTML("afterend", `
-            <button id="edit-button">
-                <img class="edit-img" src="./assets/icons/edit-black.svg">
+            <button class="portfolio__edit-button" id="edit-button" onclick="openModal()">
+                <img class="portfolio__edit-img" src="./assets/icons/edit-black.svg">
                 modifier
             </button>
         `);
@@ -115,4 +123,30 @@ function edit() {
         document.getElementById("login").innerHTML = 
         `<a href="/" onclick="window.localStorage.clear()">logout</a>`;
     }
+}
+
+const modal = document.getElementById("modal");
+
+function openModal() {
+    modal.classList.remove("hidden");
+    const deleteButton = `
+        <button class="modal-delete" onclick="console.log('quack')">
+            <img class="modal-delete-logo" src="./assets/icons/trash-can.svg" alt="Delete logo" />
+        </button>
+    `
+    for (i = 0; i < projectsList.length; i ++) {
+        // Define every project parts
+        const id = "modal-projet-" + projectsList[i]["id"];
+        const image = '<img src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
+        // Display the project at the end of gallery
+        document
+            .getElementById("modal-gallery")
+            .insertAdjacentHTML("beforeend", '<figure class="modal-projects" id=' + id + ">" + image + deleteButton + "</figure>");
+    }
+    focusables = Array.from(modal.querySelectorAll(focusablesSelector));
+}
+
+function closeModal() {
+    modal.classList.add("hidden");
+    document.getElementById("modal-gallery").innerHTML = '';
 }

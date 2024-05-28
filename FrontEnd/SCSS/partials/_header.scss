@@ -1,0 +1,42 @@
+@use './variables';
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px auto;
+	max-width: 1140px;
+    &__title {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Syne';
+        font-size: 22px;
+        font-weight: 800;
+        color: variables.$secondary-color;
+        &--description {
+            font-family: 'Work Sans';
+            font-size:10px;
+            letter-spacing: 0.1em;
+        }
+    }
+    .nav {
+        &__list {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+        }
+        &__element {
+            padding: 0 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            &:hover {
+                color: variables.$secondary-color;
+            }
+        }
+        &__logo {
+            position: relative;
+            top: 2px;
+            width: 19.35px;
+            height: 19.35px;
+        }
+    }
+}

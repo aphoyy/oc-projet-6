@@ -1,0 +1,48 @@
+@use 'variables';
+
+.form {
+    width: 50%;
+    margin: auto;
+    &__title, &__subtitle, &__text {
+        text-align: center;
+    }
+    &__wrapper {
+        text-align: left;
+        margin-top:30px;
+        display: flex;
+        flex-direction: column;
+    }
+    &__title {
+    	margin-bottom: 20px;
+    }
+    &__input {
+        height: 50px;
+        font-size: 1.2em;
+        border: none;
+        @include variables.shadow;
+    }
+    &__label {
+	    margin: 2em 0 1em 0;
+    }
+    &__textarea {
+        border: none;
+        @include variables.shadow;
+    }
+    &__submit {
+        font-family: 'Syne';
+        font-weight: 700;
+        color: variables.$white;
+        background-color: variables.$main-color;
+        margin : 40px auto 45px auto ;
+        width: 180px;
+        height: 36px;
+        text-align: center;
+        border-radius: 60px ;
+    }
+    &__text {
+        text-decoration: underline;
+    }
+    &#login {
+        margin: 150px auto 18% auto;
+    }
+}

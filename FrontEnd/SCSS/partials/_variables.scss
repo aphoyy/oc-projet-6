@@ -1,0 +1,15 @@
+$main-color: #1D6154;
+$secondary-color: #B1663C;
+$main-background-color: #FFFEF8;
+$white: #FFFFFF;
+$black: #222222;
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin shadow {
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}

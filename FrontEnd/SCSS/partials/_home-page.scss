@@ -1,0 +1,95 @@
+@use './variables';
+
+.edit-banner {
+    height: 59px;
+    color: variables.$white;
+    background-color: variables.$black;
+    @include variables.flex-center;
+    &__img {
+        width: 16px;
+        margin-right: 8px;
+    }
+}
+
+.intro {
+    margin: 139px 0;
+    display: flex;
+    align-items: center;
+    &__figure, &__content {
+        flex: 1;
+    }
+    &__img {
+        width: 80%;
+        margin: auto;
+        display: block;
+    }
+    &__title {
+        width: 60%;
+        margin-bottom: 1em;
+    }
+    &__text {
+        width: 72%;
+        margin-bottom: 0.5em;
+    }
+}
+
+.portfolio {
+    position: relative;
+    &__title {
+        text-align: center;
+        margin-bottom: 51px;
+    }
+    &__categories {
+        width: 50%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    &__button {
+        font-family: 'Syne';
+        font-weight: 700;
+        font-size: 16px;
+        padding: 9px 15px;
+        border: solid 1px variables.$main-color;
+        border-radius: 60px;
+        cursor: pointer;
+        &.selected {
+            color: variables.$main-background-color;
+            background-color: variables.$main-color;
+        }
+        &:not(.selected) {
+            color: variables.$main-color;
+            background-color: variables.$main-background-color;
+        }
+    }
+    &__edit-button {
+        position: absolute;
+        top: 10px;
+        left: 60%;
+        display: flex;
+        font-family: 'Work sans';
+        font-size: 16px;
+        font-weight: 400;
+        border: 0;
+        background: unset;
+    }
+    &__edit-img {
+        width: 16px;
+        margin-right: 8px;
+    }
+}
+
+.gallery {
+    width: 100%;
+	margin-top: 50px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+    &__img {
+	    width: 100%;
+    }
+    &__text {
+        margin-top: 7px;
+    }
+}

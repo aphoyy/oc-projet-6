@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<title>Sophie Bluel - Architecte d'intérieur</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
-</head>
-<body>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li><a href="./index.html#projets">projets</a></li>
-			<li><a href="./index.html#contact">contact</a></li>
-			<li><a href="./login.html">login</a></li>
-			<li><img id="instagram-logo" src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
-</header>
-<main>
-	<section class="form-section" id="login">
-		<h2>Log in</h2>
-		<form method="POST" class="login-form">
-			<label for="name">Email</label>
-			<input type="email" name="email" id="email" required>
-			<label for="password">Mot de passe</label>
-			<input type="password" name="password" id="password" required>
-			<input type="submit" value="Se connecter" onclick="postLogin()">
-            <a>Mot de passe oublié</a>
-		</form>
-	</section>
-</main>
-
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
-<script src="./JS/login.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Sophie Bluel - Architecte d'intérieur</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="./CSS/main.css">
+	</head>
+	<body>
+		<header class="header" id="header">
+			<h1 class="header__title">Sophie Bluel <span class="header__title--description">Architecte d'intérieur</span></h1>
+			<nav class="nav">
+				<ul class="nav__list">
+					<li class="nav__element"><a href="#projets">projets</a></li>
+					<li class="nav__element"><a href="#contact">contact</a></li>
+					<li class="nav__element" id="login"><a href="./login.html">login</a></li>
+					<li class="nav__element">
+						<img class="nav__logo" src="./assets/icons/instagram.png" alt="Instagram">
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<section class="form" id="login">
+				<h2 class="form__title">Log in</h2>
+				<form class="form__wrapper" method="POST" class="login-form">
+					<label class="form__label" for="name">E-mail</label>
+					<input class="form__input" type="email" name="email" id="email" required>
+					<label class="form__label" for="password">Mot de passe</label>
+					<input class="form__input" type="password" name="password" id="password" required>
+					<input class="form__submit" type="submit" value="Se connecter" onclick="postLogin()">
+					<a class="form__text">Mot de passe oublié</a>
+				</form>
+			</section>
+		</main>
+		<footer class="footer">
+			<ul class="footer__list">
+				<li>Mentions Légales</li>
+			</ul>
+		</footer>
+		<script src="./JS/login.js"></script>
+	</body>
 </html>

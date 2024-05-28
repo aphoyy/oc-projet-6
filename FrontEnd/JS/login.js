@@ -1,9 +1,7 @@
-window.onload = addListenerSubmit()
-
-function addListenerSubmit() {
-    const loginForm = document.querySelector(".login-form");
-    loginForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+window.onload = function addSubmitListener() {
+    const form = document.querySelector(".form");
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
         postLogin();
     });
 }
