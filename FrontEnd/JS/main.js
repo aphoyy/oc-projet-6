@@ -1,3 +1,6 @@
+// Current user
+const user = JSON.parse(window.localStorage.getItem("user"));
+
 // List of all projects and categories
 let projectsList = [];
 let categoriesList = [];
@@ -7,6 +10,7 @@ let currentCategory = 0;
 
 window.onload = getProjects();
 window.onload = getCategories();
+window.onload = edit();
 
 async function getProjects() {
 	const response = await fetch("http://localhost:5678/api/works");
@@ -91,16 +95,24 @@ function handleCategory() {
 }
 
 function edit() {
-    document.getElementById("header").insertAdjacentHTML("beforebegin", `
-    <div id="edit-mode">
-        <img class="edit-img" src="./assets/icons/edit-white.svg">
-        <h3 class="edit-text">Mode édition</h3>
-    </div>
-    `);
-    document.getElementById("projets").insertAdjacentHTML("afterend", `
-        <div id="edit-button">
-            <img class="edit-img" src="./assets/icons/edit-black.svg">
-            <h3 class="edit-text">modifier</h3>
-        </div>
-    `);
+    // If user is logged display edit mode
+    if (user !== null) { 
+        // Display edit mode banner
+        document.getElementById("header").insertAdjacentHTML("beforebegin", `
+            <div id="edit-mode">
+                <img class="edit-img" src="./assets/icons/edit-white.svg">
+                <h3 class="edit-text">Mode édition</h3>
+            </div>
+        `);
+        // Display edit mode button
+        document.getElementById("projets").insertAdjacentHTML("afterend", `
+            <button id="edit-button">
+                <img class="edit-img" src="./assets/icons/edit-black.svg">
+                modifier
+            </button>
+        `);
+        // Replace login by logout
+        document.getElementById("login").innerHTML = 
+        `<a href="/" onclick="window.localStorage.clear()">logout</a>`;
+    }
 }

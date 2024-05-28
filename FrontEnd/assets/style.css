@@ -113,6 +113,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 li:hover {
@@ -136,15 +137,16 @@ li:hover {
 	margin-right: 8px;
 	width: 16px;
 }
-.edit-text {
-	font-size: 16px;
-	font-weight: 400;
-}
 #edit-button {
 	position: absolute;
-	top: 10px;
-	left: 60.5%;
+	top: 6px;
+	left: 60%;
 	display: flex;
+	font-family: 'Work sans';
+	font-size: 16px;
+	font-weight: 400;
+	border: 0;
+	background: unset;
 }
 #introduction {
 	margin: 139px 0;

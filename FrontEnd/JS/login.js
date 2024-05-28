@@ -22,14 +22,13 @@ async function postLogin() {
             })
         });
         const result = await response.json();
-        console.log("Success:", response.status);
         if (response.status === 401) {
             alert("Mauvaise combinaison d'email et de mot de passe");
         } else if (response.status === 404) {
             alert("Utilisateur inconnu")
         } else if (response.status === 200) {
-            window.localStorage.setItem("user", result);
-            window.location.href="/";
+            window.localStorage.setItem("user", JSON.stringify(result));
+            window.location.href = "/";
         }
     } catch (error) {
         console.error("Error", error);
