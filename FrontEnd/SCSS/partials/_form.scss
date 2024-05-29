@@ -11,6 +11,12 @@
         margin-top:30px;
         display: flex;
         flex-direction: column;
+        &--modal {
+            width: 100%;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
     }
     &__title {
     	margin-bottom: 20px;
@@ -20,9 +26,31 @@
         font-size: 1.2em;
         border: none;
         @include variables.shadow;
+        &--img {
+            display: none;
+        }
+    }
+    &__select {
+        height: 50px;
+        font-size: 1.2em;
+        border: none;
+        @include variables.shadow;
+        background-color: inherit;
     }
     &__label {
 	    margin: 2em 0 1em 0;
+        &--img {
+            font-family: 'Work Sans';
+            font-size: 14px;
+            width: 173px;
+            height: 36px;
+            margin: 7px auto;
+            color: #306685;
+            background-color: #CBD6DC;
+            border-radius: 50px;
+            display: block;
+            line-height: 34px;
+        }
     }
     &__textarea {
         border: none;

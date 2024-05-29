@@ -24,6 +24,8 @@ async function getProjects() {
 
 // Display every projects from the list
 function displayProjects() {
+    document.getElementById("gallery").innerHTML = '';
+    document.getElementById("modal-gallery").innerHTML = '';
     // Loop until every projet are displayed
     for (i = 0; i < projectsList.length; i ++) {
         // Define every project parts
@@ -34,6 +36,20 @@ function displayProjects() {
         document
             .getElementById("gallery")
             .insertAdjacentHTML("beforeend", '<figure class="projects" id=' + id + ">" + image + text + "</figure>");
+    }
+    for (i = 0; i < projectsList.length; i ++) {
+        // Define every project parts
+        const id = "modal-project-" + projectsList[i]["id"];
+        const image = '<img class="gallery__img" src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
+        const deleteButton = `
+        <button class="gallery__delete-button" onclick="deleteProject(` + projectsList[i]["id"] + `)">
+            <img class="gallery__delete-logo" src="./assets/icons/trash-can.svg" alt="Delete logo" />
+        </button>
+    `
+        // Display the project at the end of gallery
+        document
+            .getElementById("modal-gallery")
+            .insertAdjacentHTML("beforeend", '<figure class="gallery__content" id=' + id + ">" + image + deleteButton + "</figure>");
     }
 }
 
@@ -120,33 +136,85 @@ function edit() {
             </button>
         `);
         // Replace login by logout
-        document.getElementById("login").innerHTML = 
+        document.getElementById("login-link").innerHTML = 
         `<a href="/" onclick="window.localStorage.clear()">logout</a>`;
     }
 }
 
 const modal = document.getElementById("modal");
+const modalOne = document.getElementById("modal-1");
+const modalTwo = document.getElementById("modal-2");
 
 function openModal() {
     modal.classList.remove("hidden");
-    const deleteButton = `
-        <button class="modal-delete" onclick="console.log('quack')">
-            <img class="modal-delete-logo" src="./assets/icons/trash-can.svg" alt="Delete logo" />
-        </button>
-    `
+    document.getElementById("modal-gallery").innerHTML = '';
     for (i = 0; i < projectsList.length; i ++) {
         // Define every project parts
-        const id = "modal-projet-" + projectsList[i]["id"];
-        const image = '<img src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
+        const id = "modal-project-" + projectsList[i]["id"];
+        const image = '<img class="gallery__img" src="' + projectsList[i]["imageUrl"] + '" alt="' + projectsList[i]["title"] +'" />';
+        const deleteButton = `
+        <button class="gallery__delete-button" onclick="deleteProject(` + projectsList[i]["id"] + `)">
+            <img class="gallery__delete-logo" src="./assets/icons/trash-can.svg" alt="Delete logo" />
+        </button>
+    `
         // Display the project at the end of gallery
         document
             .getElementById("modal-gallery")
-            .insertAdjacentHTML("beforeend", '<figure class="modal-projects" id=' + id + ">" + image + deleteButton + "</figure>");
+            .insertAdjacentHTML("beforeend", '<figure class="gallery__content" id=' + id + ">" + image + deleteButton + "</figure>");
     }
-    focusables = Array.from(modal.querySelectorAll(focusablesSelector));
 }
 
+// Close modal and reset default hidden
 function closeModal() {
     modal.classList.add("hidden");
-    document.getElementById("modal-gallery").innerHTML = '';
+    modalOne.classList.remove("hidden");
+    modalTwo.classList.add("hidden");
+}
+
+function switchToModal(id) {
+    id === 1 ? modalTwo.classList.add("hidden") : modalOne.classList.add("hidden");
+    document.getElementById("modal-" + id).classList.remove("hidden");
+}
+
+window.addEventListener("keydown", function(e) {
+    e.key === "Escape" ? closeModal() : null;
+})
+
+async function deleteProject(id) {
+    try {
+        await fetch("http://localhost:5678/api/works/" + id, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + user.token
+            }
+        }).then(
+            console.log("Project deleted")
+        );
+    } catch (error) {
+        console.error("Error", error);
+    }
+    getProjects()
+}
+
+document.querySelector("#add-project").addEventListener("submit", function(e) {
+    e.preventDefault();
+    addProject();
+})
+
+async function addProject(newProject) {
+    const formData = new FormData(document.querySelector("#add-project"));
+    try {
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + user.token
+            },
+            body: formData
+        }).then(
+            console.log("Successfull upload")
+        );
+    } catch (error) {
+        console.error("Error", error);
+    }
+    getProjects()
 }

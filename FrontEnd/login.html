@@ -17,7 +17,7 @@
 				<ul class="nav__list">
 					<li class="nav__element"><a href="#projets">projets</a></li>
 					<li class="nav__element"><a href="#contact">contact</a></li>
-					<li class="nav__element" id="login"><a href="./login.html">login</a></li>
+					<li class="nav__element" id="login-link"><a href="./login.html">login</a></li>
 					<li class="nav__element">
 						<img class="nav__logo" src="./assets/icons/instagram.png" alt="Instagram">
 					</li>
@@ -27,12 +27,12 @@
 		<main>
 			<section class="form" id="login">
 				<h2 class="form__title">Log in</h2>
-				<form class="form__wrapper" method="POST" class="login-form">
-					<label class="form__label" for="name">E-mail</label>
+				<form class="form__wrapper">
+					<label class="form__label" for="email">E-mail</label>
 					<input class="form__input" type="email" name="email" id="email" required>
 					<label class="form__label" for="password">Mot de passe</label>
 					<input class="form__input" type="password" name="password" id="password" required>
-					<input class="form__submit" type="submit" value="Se connecter" onclick="postLogin()">
+					<input class="form__submit" type="submit" value="Se connecter">
 					<a class="form__text">Mot de passe oublié</a>
 				</form>
 			</section>
