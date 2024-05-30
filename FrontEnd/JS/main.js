@@ -1,7 +1,9 @@
-// Get user from local storage
+// Get user from local storage and export it
 const user = JSON.parse(window.localStorage.getItem("user"));
+export { user };
 
 let projectList = [];
+export { projectList };
 
 const mainGallery = document.getElementById("gallery");
 const modalGallery = document.getElementById("modal-gallery");
@@ -21,14 +23,16 @@ function loadProjects() {
     modalGallery.innerHTML = "";
 
     // Load every project
-    for (i = 0; i < projectList.length; i++) {
+    for (let i = 0; i < projectList.length; i++) {
+        const id = projectList[i]["id"];
+
         // Main gallery
         const mainImage = document.createElement("img");
         mainImage.src = projectList[i]["imageUrl"];
         mainImage.classList.add("gallery__img");
         mainImage.alt = projectList[i]["title"];
 
-        const mainId = "project-" + projectList[i]["id"];
+        const mainId = "project-" + id;
         const mainFigure = document.createElement("figure");
         mainFigure.id = mainId;
         mainFigure.classList.add("projects");
@@ -41,7 +45,7 @@ function loadProjects() {
         mainGallery.append(mainFigure);
 
         // Modal gallery
-        const modalId = "modal-project" + projectList[i]["id"];
+        const modalId = "modal-project" + id;
         const modalFigure = document.createElement("figure");
         modalFigure.id = modalId;
         modalFigure.classList.add("gallery__content");
@@ -53,7 +57,7 @@ function loadProjects() {
 
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("gallery__delete-button");
-        deleteButton.onclick = () => deleteProject(projectList[i]["id"]);
+        deleteButton.onclick = () => deleteProject(id);
 
         const deleteLogo = document.createElement("img");
         deleteLogo.src = "./assets/icons/trash-can.svg";
@@ -69,14 +73,20 @@ function loadProjects() {
 // Delete project with id
 async function deleteProject(id) {
     try {
-        await fetch("http://localhost:5678/api/works/" + id, {
+        const response = await fetch("http://localhost:5678/api/works/" + id, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + user.token
             }
-        }).then(
-            () => loadProjects()
-        );
+        })
+        if (response.status === 500) {
+            return console.error("Erreur inattendu");
+        } else if (response.status === 401) {
+            return console.error("Accès non autorisé");
+        } else if (response.status === 204) {
+            console.log("Projet supprimé");
+            getProjects()
+        }
     } catch (error) {
         console.error("Error", error);
     }
@@ -98,9 +108,17 @@ async function addProject() {
                 "Authorization": "Bearer " + user.token
             },
             body: formData
-        }).then(
-            console.log("Successfull upload")
-        );
+        });
+        if (response.status === 500) {
+            return console.error("Erreur inattendu");
+        } else if (response.status === 401) {
+            return console.error("Accès non autorisé");
+        } else if (response.status === 400) {
+            return console.error("Mauvaise requête");
+        } else if (response.status === 201) {
+            console.log("Projet ajouté"),
+            getProjects()
+        }
     } catch (error) {
         console.error("Error", error);
     }

@@ -1,3 +1,5 @@
+import { projectList } from "./main.js";
+
 let categoryList = [];
 let blacklist = [];
 let currentCategory = 0;
@@ -22,7 +24,7 @@ function displayCategories() {
     container.append(initialButton);
 
     // Insert every category
-    for (i = 0; i < categoryList.length; i++) {
+    for (let i = 0; i < categoryList.length; i++) {
         const categoryButton = document.createElement("button");
         const categoryPosition = (i + 1);
         categoryButton.id = "category-" + categoryPosition;
@@ -51,7 +53,7 @@ function categoryClick(value) {
 function handleCategory() {
     // Remove hidden class from all projects and reset blacklist
     Array.from(document.getElementsByClassName("projects hidden")).forEach((project) => {
-        project.classList.remove("hidden")
+        project.classList.remove("hidden");
     });
     blacklist = [];
 
@@ -63,7 +65,7 @@ function handleCategory() {
             }
         })
         // Set blacklisted projects hidden
-        for (i = 0; i < blacklist.length; i++) {
+        for (let i = 0; i < blacklist.length; i++) {
             document.getElementById("project-" + blacklist[i]).classList.add("hidden");
         }
     }

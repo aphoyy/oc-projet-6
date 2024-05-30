@@ -19,11 +19,12 @@ async function userLogin(email, password) {
             })
         });
         const result = await response.json();
-        if (response.status === 401) {
-            alert("Mot de passe incorrect");
-        } else if (response.status === 404) {
-            alert("Impossible de trouver cet utilisateur");
+        if (response.status === 404) {
+            return alert("Impossible de trouver cet utilisateur");
+        } else if (response.status === 401) {
+            return alert("Mot de passe incorrect");
         } else if (response.status === 200) {
+            console.log("Connecté");
             window.localStorage.setItem("user", JSON.stringify(result));
             window.location.href = "/";
         }
