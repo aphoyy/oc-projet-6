@@ -35,6 +35,3 @@ function switchToModal(id) {
     id === 1 ? modalTwo.classList.add("hidden") : modalOne.classList.add("hidden");
     document.getElementById("modal-" + id).classList.remove("hidden");
 }
-
-// document.getElementById("modal").addEventListener("click", () => closeModal());
-
