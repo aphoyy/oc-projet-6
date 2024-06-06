@@ -27,7 +27,14 @@
         border: none;
         @include variables.shadow;
         &--img {
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 173px;
+            height: 36px;
+            border-radius: 50px;
+            color: transparent;
+            line-height: 9999px;
         }
     }
     &__select {
@@ -50,6 +57,7 @@
             border-radius: 50px;
             display: block;
             line-height: 34px;
+            position: relative;
         }
     }
     &__textarea {

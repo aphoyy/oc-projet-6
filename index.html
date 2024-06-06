@@ -44,39 +44,42 @@
 				<div class="portfolio__categories" id="categories-container"></div>
 				<div class="gallery" id="gallery"></div>
 			</section>
-			<aside class="modal hidden" id="modal">
+			<aside class="modal hidden" id="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-1-title">
 				<div class="modal__wrapper">
 					<!-- Photo gallery modal -->
-					<article class="card" id="modal-1">
+					<article class="card" id="modal-1" aria-hidden="true">
 						<button class="card__close" onclick="closeModal()">
 							<img src="./assets/icons/xmark.svg" alt="Close logo" />
 						</button>
-						<h3 class="card__title">Galerie photo</h3>
+						<h3 class="card__title" id="modal-1-title">Galerie photo</h3>
 						<div class="gallery" id="modal-gallery"></div>
 						<hr class="card__divider">
 						<button class="card__button" onclick="switchToModal(2)">Ajouter une photo</button>
 					</article>
 					<!-- Add photo modal -->
-					<article class="card hidden" id="modal-2">
-						<button class="card__close" onclick="closeModal()">
-							<img src="./assets/icons/xmark.svg" alt="Close logo" />
-						</button>
+					<article class="card hidden" id="modal-2" aria-hidden="true">
 						<button class="card__return" onclick="switchToModal(1)">
 							<img src="./assets/icons/arrow-left.svg" alt="Return logo" />
+						</button>
+						<button class="card__close" onclick="closeModal()">
+							<img src="./assets/icons/xmark.svg" alt="Close logo" />
 						</button>
 						<h3 class="card__title">Ajout photo</h3>
 						<form class="form__wrapper--modal" id="add-project">
 							<div class="card__content">
 								<img class="card__img" src="./assets/icons/picture.svg" alt="Picture logo" />
-								<label class="form__label--img" for="image">+ Ajouter photo</label>
-								<input 
-									class="form__input--img" 
-									type="file"
-									name="image"
-									id="image"
-									accept="image/png, image/jpg"
-									required
-								/>
+								<label class="form__label--img" for="image">
+									+ Ajouter photo
+									<input 
+										class="form__input--img" 
+										type="file"
+										name="image"
+										id="image"
+										accept="image/png, image/jpg"
+										title=""
+										required
+									/>
+								</label>
 								<p class="card__text">jpg, png : 4mo max</p>
 							</div>
 							<label class="form__label" for="title">Titre</label>
