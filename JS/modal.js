@@ -33,7 +33,6 @@ function focusInModal(e) {
         index = focusables.length - 1;
     }
     focusables[index].focus();
-    console.log(focusables[index])
 }
 
 // Click outside of modal call closeModal()
