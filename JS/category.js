@@ -1,25 +1,25 @@
 import { projectList } from "./main.js";
 
 let categoryList = [];
-let blacklist = [];
 let currentCategory = 0;
+let blacklist = [];
 
-window.onload = getCategories()
+getCategories()
 
 async function getCategories() {
 	const response = await fetch("http://localhost:5678/api/categories");
 	categoryList = await response.json();
-    displayCategories();
+    renderCategories();
 }
 
-function displayCategories() {
+function renderCategories() {
     // Insert "all" category
     const container = document.getElementById("categories-container");
     const initialButton = document.createElement("button");
     initialButton.id = "category-0";
     initialButton.classList.add("portfolio__button", "selected");
     initialButton.innerText = "Tous";
-    initialButton.onclick = () => categoryClick(0);
+    initialButton.onclick = () => categoryOnClick(0);
 
     container.append(initialButton);
 
@@ -30,13 +30,13 @@ function displayCategories() {
         categoryButton.id = "category-" + categoryPosition;
         categoryButton.classList.add("portfolio__button");
         categoryButton.innerText = categoryList[i]["name"];
-        categoryButton.onclick = () => categoryClick(categoryPosition);
+        categoryButton.onclick = () => categoryOnClick(categoryPosition);
 
         container.append(categoryButton);
     }
 }
 
-function categoryClick(value) {
+function categoryOnClick(value) {
     // Remove class from previous category
     document
         .getElementById("category-" + currentCategory).classList
@@ -50,7 +50,7 @@ function categoryClick(value) {
     handleCategory();
 }
 
-function handleCategory() {
+export function handleCategory() {
     // Remove hidden class from all projects and reset blacklist
     Array.from(document.getElementsByClassName("projects hidden")).forEach((project) => {
         project.classList.remove("hidden");

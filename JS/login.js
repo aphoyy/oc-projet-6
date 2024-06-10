@@ -1,3 +1,4 @@
+// Add event listener that call userLogin() on submit
 document.querySelector(".form").addEventListener("submit", function (e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -6,6 +7,7 @@ document.querySelector(".form").addEventListener("submit", function (e) {
     userLogin(email, password);
 });
 
+// Post request with email and password to get access to edit mode
 async function userLogin(email, password) {
     try {
         const response = await fetch("http://localhost:5678/api/users/login", {

@@ -2,22 +2,26 @@
 const user = JSON.parse(window.localStorage.getItem("user"));
 export { user };
 
+import { handleCategory } from "./category.js";
+
 let projectList = [];
 export { projectList };
 
 const mainGallery = document.getElementById("gallery");
 const modalGallery = document.getElementById("modal-gallery");
 
-window.onload = getProjects();
+// Call getProjetcts on load
+getProjects();
 
 // Get the projects and set a list of them
 async function getProjects() {
 	const response = await fetch("http://localhost:5678/api/works");
 	projectList = await response.json();
-    loadProjects();
+    renderProjects();
 }
 
-function loadProjects() {
+// Empty both gallery then add all projects inside
+function renderProjects() {
     // Reset both gallery
     mainGallery.innerHTML = "";
     modalGallery.innerHTML = "";
@@ -68,6 +72,9 @@ function loadProjects() {
         modalFigure.append(modalImage, deleteButton);
         modalGallery.append(modalFigure);
     }
+
+    // Call handleCategory to keep current category selected
+    handleCategory();
 }
 
 // Delete project with id
@@ -116,8 +123,8 @@ async function addProject() {
         } else if (response.status === 400) {
             return console.error("Mauvaise requête");
         } else if (response.status === 201) {
-            console.log("Projet ajouté"),
-            getProjects()
+            console.log("Projet ajouté");
+            getProjects();
         }
     } catch (error) {
         console.error("Error", error);

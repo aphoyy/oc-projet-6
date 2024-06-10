@@ -27,11 +27,14 @@ function focusInModal(e) {
     // If pressing shift while pressing tab go backward
     e.shiftKey === true ? index -- : index++;
 
+    // Make a loop around 0 and focusables length
     if (index >= focusables.length) {
         index = 0;
     } else if (index < 0) {
         index = focusables.length - 1;
     }
+
+    // Focus the element
     focusables[index].focus();
 }
 
@@ -78,29 +81,22 @@ function closeModal() {
 
 // Set modal visible and hide the other
 function switchToModal(id) {
-    if (id === 1) {
-        // Hide modal 2
-        modalTwo.ariaHidden = "true";
-        modalTwo.classList.add("hidden");
+    // Set which modal is visible or not
+    let visibleModal;
+    let hiddenModal;
+    id === 1 ? 
+    (visibleModal = modalOne) && (hiddenModal = modalTwo) :
+    (visibleModal = modalTwo) && (hiddenModal = modalOne);
 
-        // Show modal 1 and change modal aria-label
-        modalOne.ariaHidden = "false";
-        modalOne.classList.remove("hidden");
-        modalContainer.setAttribute("aria-labelledby", "modal-1-title");
+    // Hide the other modal
+    hiddenModal.ariaHidden = "true";
+    hiddenModal.classList.add("hidden");
 
-        // Change focusables elements to current modal
-        focusables = Array.from(modalOne.querySelectorAll(focusableSelector));
-    } else {
-        // Hide modal 1
-        modalOne.ariaHidden = "true";
-        modalOne.classList.add("hidden");
+    // Show current modal and change modal labelledby
+    visibleModal.ariaHidden = "false";
+    visibleModal.classList.remove("hidden");
+    modalContainer.setAttribute("aria-labelledby", id === 1 ? "modal-1-title" : "modal-2-title");
 
-        // Show modal 2 and change modal aria-label
-        modalTwo.ariaHidden = "false";
-        modalTwo.classList.remove("hidden");
-        modalContainer.setAttribute("aria-labelledby", "modal-2-title");
-
-        // Change focusables elements to current modal
-        focusables = Array.from(modalTwo.querySelectorAll(focusableSelector));
-    }
+    // Get all clickable elements from current modal
+    focusables = Array.from(visibleModal.querySelectorAll(focusableSelector));
 }
