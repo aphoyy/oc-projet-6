@@ -84,9 +84,13 @@ function switchToModal(id) {
     // Set which modal is visible or not
     let visibleModal;
     let hiddenModal;
-    id === 1 ? 
-    (visibleModal = modalOne) && (hiddenModal = modalTwo) :
-    (visibleModal = modalTwo) && (hiddenModal = modalOne);
+    if (id === 1) {
+        visibleModal = modalOne;
+        hiddenModal = modalTwo;
+    } else if (id === 2) {
+        visibleModal = modalTwo;
+        hiddenModal = modalOne;
+    }
 
     // Hide the other modal
     hiddenModal.ariaHidden = "true";
